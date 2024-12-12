@@ -11,7 +11,9 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:flatten-workspace.copyWorkspace"
+        "onCommand:flatten-workspace.copyWorkspace",
+        "onCommand:flatten-workspace.copyDirectory",
+        "onCommand:flatten-workspace.copyFileOrFolder"
     ],
     "main": "./out/extension.js",
     "contributes": {
@@ -25,6 +27,11 @@
                 "command": "flatten-workspace.copyDirectory",
                 "title": "Flatten Workspace: Copy Directory Structure",
                 "icon": "$(list-tree)"
+            },
+            {
+                "command": "flatten-workspace.copyFileOrFolder",
+                "title": "Flatten Workspace: Copy This File or Folder Recursively",
+                "icon": "$(files)"
             }
         ],
         "menus": {
@@ -35,15 +42,22 @@
                     "group": "navigation",
                     "icon": "$(files)"
                 }
+            ],
+            "explorer/context": [
+                {
+                    "command": "flatten-workspace.copyFileOrFolder",
+                    "when": "explorerResourceIsFolder || explorerResourceIsFile",
+                    "group": "navigation"
+                }
+            ],
+            "keybindings": [
+                {
+                    "command": "flatten-workspace.copyWorkspace",
+                    "key": "ctrl+shift+c",
+                    "when": "editorFocus"
+                }
             ]
         },
-        "keybindings": [
-            {
-                "command": "flatten-workspace.copyWorkspace",
-                "key": "ctrl+shift+c",
-                "when": "editorFocus"
-            }
-        ],
         "configuration": {
             "title": "Flatten Workspace",
             "properties": {
