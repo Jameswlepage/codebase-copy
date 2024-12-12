@@ -1,0 +1,106 @@
+{
+    "name": "flatten-workspace",
+    "displayName": "Flatten Workspace",
+    "description": "A VS Code extension to flatten and copy entire workspace code as a single string (for use in AI tools)",
+    "version": "0.0.1",
+    "publisher": "jameswlepage",
+    "engines": {
+        "vscode": "^1.70.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:flatten-workspace.copyWorkspace"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "flatten-workspace.copyWorkspace",
+                "title": "Flatten Workspace: Copy Workspace Content",
+                "icon": "$(files)"
+            },
+            {
+                "command": "flatten-workspace.copyDirectory",
+                "title": "Flatten Workspace: Copy Directory Structure",
+                "icon": "$(list-tree)"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "flatten-workspace.copyWorkspace",
+                    "when": "editorTextFocus",
+                    "group": "navigation",
+                    "icon": "$(files)"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "flatten-workspace.copyWorkspace",
+                "key": "ctrl+shift+c",
+                "when": "editorFocus"
+            }
+        ],
+        "configuration": {
+            "title": "Flatten Workspace",
+            "properties": {
+                "flatten-workspace.ignorePatterns": {
+                    "type": "array",
+                    "default": [
+                        "node_modules/**",
+                        ".git/**",
+                        "out/**",
+                        "dist/**",
+                        "build/**",
+                        "*.vsix",
+                        "**/*.map",
+                        "**/*.log",
+                        ".vscode/**",
+                        ".vscode-test/**",
+                        "coverage/**",
+                        "tmp/**",
+                        ".DS_Store"
+                    ],
+                    "description": "Patterns to ignore when flattening workspace",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "flatten-workspace.useGitignore": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to use .gitignore patterns"
+                },
+                "flatten-workspace.maxFileSizeKB": {
+                    "type": "number",
+                    "default": 1024,
+                    "description": "Maximum file size in KB to include in flattened output"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "compile": "tsc -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.70.0",
+        "eslint": "^8.0.0",
+        "typescript": "^4.0.0"
+    },
+    "dependencies": {
+        "@vscode/vsce": "^3.2.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jameswlepage/flatten-workspace.git"
+    },
+    "license": "GPL-3.0-only",
+    "author": "James LePage",
+    "bugs": {
+        "url": "https://github.com/jameswlepage/flatten-workspace/issues"
+    },
+    "homepage": "https://github.com/jameswlepage/flatten-workspace#readme"
+}
